@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mission06_norty144.Models
 {
+    //variables for inputs
     public class MovieResponse
     {
         [Key]

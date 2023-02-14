@@ -20,6 +20,7 @@ namespace Mission06_norty144.Models
         {
             mb.Entity<MovieResponse>().HasData(
 
+                //seeded entries
                 new MovieResponse
                 {
                     MovieId = 1,
