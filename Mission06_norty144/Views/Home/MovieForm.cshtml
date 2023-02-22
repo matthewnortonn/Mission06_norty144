@@ -8,8 +8,19 @@
 
 <div>
     <form method="post">
-        <label asp-for="Category">Category</label>
-        <input asp-for="Category" required />
+
+        <div asp-validation-summary="All"></div>
+
+        <input asp-for="MovieId" type="hidden"/>
+
+        <label asp-for="CategoryID">Category</label>
+        <select asp-for="CategoryID">
+            <option value="">Select a Category</option>
+            @foreach (Category c in ViewBag.Categories)
+            {
+                <option value="@c.CategoryID">@c.CategoryName</option>
+            }
+        </select>
 
         <br />
 
@@ -39,8 +50,8 @@
         <br />
 
         <label asp-for="Edited">Edited</label>
-        <input asp-for="Edited" type="radio" name="Edited" value="yes" />Yes
-        <input asp-for="Edited" type="radio" name="Edited" value="no" />No
+        <input asp-for="Edited" type="radio" name="Edited" value="true" />Yes
+        <input asp-for="Edited" type="radio" name="Edited" value="false" />No
 
         <br />
 
@@ -54,7 +65,7 @@
 
         <br />
 
-        <button type="submit">Submit New Movie</button>
+        <button type="submit">Submit</button>
 
     </form>
 </div>

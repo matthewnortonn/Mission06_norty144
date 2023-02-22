@@ -15,16 +15,38 @@ namespace Mission06_norty144.Models
         }
 
         public DbSet<MovieResponse> responses { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
+
+
+        //seeding data
         protected override void OnModelCreating(ModelBuilder mb)
         {
+
+            mb.Entity<Category>().HasData(
+                    new Category { CategoryID = 1, CategoryName = "Action" },
+                    new Category { CategoryID = 2, CategoryName = "Adventure" },
+                    new Category { CategoryID = 3, CategoryName = "Comedy" },
+                    new Category { CategoryID = 4, CategoryName = "Drama" },
+                    new Category { CategoryID = 5, CategoryName = "Horror" },
+                    new Category { CategoryID = 6, CategoryName = "Romance" },
+                    new Category { CategoryID = 7, CategoryName = "Thriller" },
+                    new Category { CategoryID = 8, CategoryName = "Fantasy" },
+                    new Category { CategoryID = 9, CategoryName = "Mystery" },
+                    new Category { CategoryID = 10, CategoryName = "Western" },
+                    new Category { CategoryID = 11, CategoryName = "Sports" },
+                    new Category { CategoryID = 12, CategoryName = "Science Fiction" },
+                    new Category { CategoryID = 13, CategoryName = "Musical" }
+                );
+
+
             mb.Entity<MovieResponse>().HasData(
 
                 //seeded entries
                 new MovieResponse
                 {
                     MovieId = 1,
-                    Category = "Action",
+                    CategoryID = 1,
                     Title = "Batman",
                     Year = "1989",
                     Director = "Tim Burton",
@@ -36,7 +58,7 @@ namespace Mission06_norty144.Models
                 new MovieResponse
                 {
                     MovieId = 2,
-                    Category = "Action",
+                    CategoryID = 1,
                     Title = "Harry Potter and the Chamber of Secrets",
                     Year = "2002",
                     Director = "Chris Columbus",
@@ -48,7 +70,7 @@ namespace Mission06_norty144.Models
                 new MovieResponse
                 {
                     MovieId = 3,
-                    Category = "Action",
+                    CategoryID = 1,
                     Title = "X-Men",
                     Year = "2000",
                     Director = "Bryan Singer",

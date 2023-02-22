@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission06_norty144.Models;
 using System;
@@ -11,13 +12,13 @@ namespace Mission06_norty144.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private MovieDataContext blahContext { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, MovieDataContext someName)
+        private MovieDataContext MFContext { get; set; }
+        
+        //constructor
+        public HomeController(MovieDataContext someName)
         {
-            _logger = logger;
-            blahContext = someName;
+            MFContext = someName;
         }
 
         public IActionResult Index()
@@ -25,35 +26,123 @@ namespace Mission06_norty144.Controllers
             return View();
         }
 
+
+
+
+
+
+
+
         public IActionResult Podcasts()
         {
             return View();
         }
 
+
+
+
+
+
+
         [HttpGet]
         public IActionResult MovieForm()
         {
-            return View();
+            ViewBag.Categories = MFContext.Categories.ToList();
+
+            return View("MovieForm", new MovieResponse());
         }
+
+
+
+
+
 
         [HttpPost]
         public IActionResult MovieForm(MovieResponse mr)
         {
-            blahContext.Add(mr);
-            blahContext.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                MFContext.Add(mr);
+                MFContext.SaveChanges();
 
-            return View("Confirmation", mr);
+                return View("Confirmation", mr);
+            }
+            else //invalid
+            {
+                ViewBag.Categories = MFContext.Categories.ToList();
+
+                return View(mr);
+            }
+
+            
         }
 
-        public IActionResult Privacy()
+
+
+
+
+
+        [HttpGet]
+        public IActionResult MovieList()
         {
-            return View();
+            var submissions = MFContext.responses
+               .Include(x => x.Category)
+               .OrderBy(x => x.Category)
+               .ToList();
+
+            return View(submissions);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+
+
+
+        [HttpGet]
+        public IActionResult Edit ( int id )
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewBag.Categories = MFContext.Categories.ToList();
+
+            var form = MFContext.responses.Single(x => x.MovieId == id);
+
+            return View("MovieForm", form);
         }
+
+
+
+
+
+        [HttpPost]
+        public IActionResult Edit (MovieResponse er)
+        {
+            MFContext.Update(er);
+            MFContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult Delete ( int id )
+        {
+            var form = MFContext.responses.Single(x => x.MovieId == id);
+
+            return View(form);
+        }
+
+
+
+
+        [HttpPost]
+        public IActionResult Delete(MovieResponse dr)
+        {
+            MFContext.responses.Remove(dr);
+            MFContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
+
+
     }
 }
