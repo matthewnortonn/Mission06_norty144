@@ -14,7 +14,7 @@
         <input asp-for="MovieId" type="hidden"/>
 
         <label asp-for="CategoryID">Category</label>
-        <select asp-for="CategoryID">
+        <select asp-for="CategoryID" required>
             <option value="">Select a Category</option>
             @foreach (Category c in ViewBag.Categories)
             {
