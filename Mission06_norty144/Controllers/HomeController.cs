@@ -32,7 +32,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        //podcast view
         public IActionResult Podcasts()
         {
             return View();
@@ -43,7 +43,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        //movie form GET
         [HttpGet]
         public IActionResult MovieForm()
         {
@@ -56,7 +56,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        //movie form post request to add new movies to the list
         [HttpPost]
         public IActionResult MovieForm(MovieResponse mr)
         {
@@ -81,7 +81,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        // get request to view the movie list and sort them by category
         [HttpGet]
         public IActionResult MovieList()
         {
@@ -96,7 +96,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        // get request to edit a movie when the edit button is clicked
         [HttpGet]
         public IActionResult Edit ( int id )
         {
@@ -110,7 +110,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        // post request to post the changes to a movie entry
         [HttpPost]
         public IActionResult Edit (MovieResponse er)
         {
@@ -122,7 +122,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        // get request to delete a movie
         [HttpGet]
         public IActionResult Delete ( int id )
         {
@@ -133,7 +133,7 @@ namespace Mission06_norty144.Controllers
 
 
 
-
+        //post request to actually delete a movie
         [HttpPost]
         public IActionResult Delete(MovieResponse dr)
         {
